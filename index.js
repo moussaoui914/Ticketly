@@ -6,18 +6,15 @@ document.querySelector(".second-window .progress-line span:nth-child(1)").classL
 // eventCard.addEventListener("click" , choseCard)
 
 // eventCard.forEach(card => card.addEventListener('click', choseCard.bind(null, card)))
-// let list = [
-//     {id : 1 ,title:"Concert in the Park",lieu:"Central park , New York"},
-//       {title:"Concert in the Park",lieu:"Central park , New York"}
-// ]
+
 let titre; let place; let time; let seats; let placeNumber; let price;
 for (let cards of eventCard) {
     cards.addEventListener('click', () => {
         choseCard(cards);
-        titre = cards.querySelector(".second h4").textContent;
-        localStorage.setItem("titre", titre);
         place = cards.querySelector(".second p").firstChild.textContent;
         localStorage.setItem("place", place);
+        titre = cards.querySelector(".second h4").textContent;
+        localStorage.setItem("titre", titre);
         time = cards.querySelector(".second h5").textContent;
         localStorage.setItem("time", time);
         seats = cards.querySelector(".second p.seats").textContent;
@@ -113,20 +110,109 @@ function add() {
     })
 }
 participant = localStorage.getItem("participants");
+let personne = 1;
 
 function switchThirdPage() {
     thirdPage.addEventListener('click', () => {
         document.querySelector(".second-window").style.display = "none";
-        document.querySelector(".third-window").style.display="block"
+        document.querySelector(".third-window").style.display = "block"
         document.querySelector(".third-window .progress-line span:nth-child(3)").classList.add("active");
         document.querySelector(".second-window .progress-line span:nth-child(2)").classList.remove("active");
-        creatForm();
-    }
-)}
+        let formId = 1;
+        for (let i = 1; i <= participant; i++) {
+            creatForm(formId);
+            const form = document.querySelector("#participant-form-" + formId);
+            form.style.display = "none";
 
-function creatForm() {
+            personne = i + 1;
+            localStorage.setItem("personne", personne);
+            personne = localStorage.getItem("personne");
+            formId++;
+        }
+        const firstForm = document.querySelector(".participant-form-container");
+        firstForm.style.display = "block";
+    }
+    )
+}
+function creatForm(formId) {
     let users = document.querySelector(".user-form");
-    users.innerHTML+=`
-        <p>${participant}</p>
+    // createElement & append
+    users.innerHTML += `
+                    <section id="participant-form-${formId}" class="participant-form-container">
+                    <h3 class="form-title">Add participant information</h3>
+                    <div class="form-info">
+                        <label for="">First Name</label>
+                        <input id="firstName" type="text" placeholder="Enter Your First Name">
+                        <label for="">Last Name</label>
+                        <input id="lastName" type="text" placeholder="Enter Your Last Name">
+                        <label for="">Email</label>
+                        <input id="email" type="email" placeholder="Enter Your Email">
+                        <label for="">Phone Number</label>
+                        <input id="phone" type="text" placeholder="Enter Your Phone Number">
+                    </div>
+                    <p class="participant-status">Participant ${personne} / ${participant}</p>
+                    <button class="confirm-button" onclick="confirmButtonClick(${formId})">Confirm</button>
+                </section>
+    `
+}
+
+let userResume; let firstName; let lastName; let email; let phone; let confirmButton;
+let nom; let prenom; let gmail; let tele;
+
+// Initialize an empty array to store all participants
+const participants = [];
+
+function confirmButtonClick(formId) {
+    const currentForm = document.querySelector("#participant-form-" + formId);
+    const nextForm = document.querySelector("#participant-form-" + (formId + 1));
+
+    const firstName = currentForm.querySelector("#firstName").value;
+    const lastName = currentForm.querySelector("#lastName").value;
+    const phone = currentForm.querySelector("#phone").value;
+    const email = currentForm.querySelector("#email").value;
+
+    // Create an object for the current participant
+    const participant = {
+        nom: lastName,
+        prenom: firstName,
+        gmail: email,
+        tele: phone
+    };
+
+    // Save the participant in the array
+    participants[formId - 1] = participant;
+
+    // Log to verify
+    addResume(firstName,lastName,email,phone);
+
+    // Move to next form if exists
+    if (nextForm) {
+        currentForm.style.display = "none";
+        nextForm.style.display = "block";
+    }
+
+}
+
+// userResume=document.querySelector(".user-resume");
+
+function addResume(firstName,lastName,email,tele) {
+    let infoPersonne = document.querySelector(".user-resume");
+
+    infoPersonne.innerHTML += `
+
+                    <div class="userResum">
+                    <div class="recaputulation">
+        <p><b>First Name: </b>${firstName}</p>
+        <p><b>LastName Name: </b>${lastName}</p>
+        <p><b>Email: </b>${email}</p>
+        <p><b>Phone Number: </b>${tele}</p>
+                    </div>
+
+                
+                    <div class="delete-btn">
+                        <button class="delete">Delete</button>
+                    </div>
+                </div>
+    
     `
 }
