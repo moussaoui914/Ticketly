@@ -50,7 +50,7 @@ secondPage.addEventListener('click', () => {
     document.querySelector(".second-window").style.display = "block";
     document.querySelector(".first-window").style.display = "none";
     document.querySelector(".second-window .progress-line span:nth-child(2)").classList.add("active");
-    document.querySelector(".second-window .progress-line span:nth-child(1  )").classList.remove("active");
+    document.querySelector(".second-window .progress-line span:nth-child(1)").classList.remove("active");
     creatCard();
 
 })
@@ -171,7 +171,6 @@ function confirmButtonClick(formId) {
     const phone = currentForm.querySelector("#phone").value;
     const email = currentForm.querySelector("#email").value;
 
-    // Create an object for the current participant
     const participant = {
         nom: lastName,
         prenom: firstName,
@@ -179,7 +178,6 @@ function confirmButtonClick(formId) {
         tele: phone
     };
 
-    // Save the participant in the array
     participants[formId - 1] = participant;
 
     // Log to verify
@@ -193,6 +191,8 @@ function confirmButtonClick(formId) {
 
 }
 
+let deleteButton ;
+
 // userResume=document.querySelector(".user-resume");
 
 function addResume(firstName,lastName,email,tele) {
@@ -203,16 +203,79 @@ function addResume(firstName,lastName,email,tele) {
                     <div class="userResum">
                     <div class="recaputulation">
         <p><b>First Name: </b>${firstName}</p>
-        <p><b>LastName Name: </b>${lastName}</p>
+        <p><b>Last Name: </b>${lastName}</p>
         <p><b>Email: </b>${email}</p>
         <p><b>Phone Number: </b>${tele}</p>
                     </div>
 
                 
                     <div class="delete-btn">
-                        <button class="delete">Delete</button>
+                        <button onclick="deleteBtn()" class="delete">Delete</button>
                     </div>
                 </div>
-    
+    `
+    userResum = document.querySelector(".userResum");
+
+}
+let userResum;
+function deleteBtn(){
+    userResum.style.display="none";
+}
+
+function affichageTous(){
+    eventResum.innerHTML=`
+                    <h2>${titre}</h2>
+                <p class="place">${place}</p>
+                <h5>${time}</h5>
+                <p class="seats">${seats}</p>
+                <div class="footer-events">
+                    <p>$${price} per ticket</p>
+                </div>
     `
 }
+
+
+let fourtNextButton= document.querySelector(".fourth-window-switch");
+
+fourtNextButton.addEventListener('click',()=>{
+            document.querySelector(".third-window").style.display = "none";
+        document.querySelector(".fourth-window").style.display = "block"
+        document.querySelector(".fourth-window .progress-line span:nth-child(4)").classList.add("active");
+        document.querySelector(".second-window .progress-line span:nth-child(3)").classList.remove("active");
+        affichageTous();
+})
+
+let eventResum = document.querySelector(".eventResum");
+let usersResum = document.querySelector(".usersResum");
+let priceResume = document.querySelector(".priceResume");
+
+function affichageTous(){
+    eventResum.innerHTML=`
+                    <h1>Event Details</h1>
+                    <h2>${titre}</h2>
+                <p class="place">${place}</p>
+                <h5>${time}</h5>
+                <p class="seats">${seats}</p>
+                    <p>$${price} per ticket</p>
+    `
+    affichageUsers();
+let prixTotal;
+    prixTotal = price*participants.length;
+    priceResume.innerHTML=`
+        <h1>Reservation Summary</h1>
+        <p>Total Price : ${prixTotal}</p>
+    `
+}
+
+        let i;
+function affichageUsers(){
+    for  (i=0;i<participants.length;i++){
+        usersResum.innerHTML +=`
+        <p>${participants[i].nom}</p>
+        <p>${participants[i].prenom}</p>
+        <p>${participants[i].gmail}</p>
+        <p class="lastOne">${participants[i].tele}</p>
+        `
+}
+}
+

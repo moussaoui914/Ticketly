@@ -336,3 +336,49 @@ button.delete{
     border-style: none;
     cursor: pointer;
 }
+.fourth-window-switch{
+    align-items: center;
+    margin-left: 45%;
+    padding: 6px 20px;
+    border-radius: 6px;
+    border-style: none;
+    margin-top: 20px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+.fourth-window{
+    display: none;
+}
+.recapitulatif{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-top: 40px;
+}
+.recapitulatif div{
+width: 29%;
+    height: 429px;
+    background: #c0b6b6cc;
+    border-radius: 13px;
+    padding: 10px;
+}
+
+.recapitulatif h1{
+    font-size: 17px;
+    margin-bottom: 24px;
+    color: blue;
+    font-weight: bold;
+    text-align: center;
+}
+.usersResum p.lastOne{
+    border-bottom: 2px solid black;
+    margin-bottom: 3px;
+    padding-bottom: 10px;
+}
+.eventResum h2{
+    font-size: 17px;
+    color: gainsboro;
+    margin-bottom: 5px;
+}
