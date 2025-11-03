@@ -136,7 +136,6 @@ function switchThirdPage() {
 }
 function creatForm(formId) {
     let users = document.querySelector(".user-form");
-    // createElement & append
     users.innerHTML += `
                     <section id="participant-form-${formId}" class="participant-form-container">
                     <h3 class="form-title">Add participant information</h3>
@@ -159,7 +158,6 @@ function creatForm(formId) {
 let userResume; let firstName; let lastName; let email; let phone; let confirmButton;
 let nom; let prenom; let gmail; let tele;
 
-// Initialize an empty array to store all participants
 const participants = [];
 
 function confirmButtonClick(formId) {
@@ -180,10 +178,8 @@ function confirmButtonClick(formId) {
 
     participants[formId - 1] = participant;
 
-    // Log to verify
     addResume(firstName,lastName,email,phone);
 
-    // Move to next form if exists
     if (nextForm) {
         currentForm.style.display = "none";
         nextForm.style.display = "block";
@@ -193,7 +189,6 @@ function confirmButtonClick(formId) {
 
 let deleteButton ;
 
-// userResume=document.querySelector(".user-resume");
 
 function addResume(firstName,lastName,email,tele) {
     let infoPersonne = document.querySelector(".user-resume");
